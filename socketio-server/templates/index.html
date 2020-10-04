@@ -1,0 +1,20 @@
+<!-- Source: https://gist.github.com/ericremoreynolds/dbea9361a97179379f3b -->
+<html>
+    <body>
+        <h1>Connecting</h1>
+        <img id="image" />
+        <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var socket = io.connect('//' + document.domain + ':' + location.port);            
+            socket.on('connect', function() {
+                socket.emit('connected');
+                $('h1').text("Connected via socket.io.")
+            });
+            socket.on('message', function(data) {
+                $('h1').text(data + " " + new Date().getTime());
+                document.getElementById("image").src = "/image.jpg?" + new Date().getTime();
+            });
+        </script>
+    </body>
+</html>
